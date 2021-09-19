@@ -7,8 +7,13 @@ __basePath = __dirname;
 const port = 3000
 
 app.get('/',(req,res)=>{
-    res.render('home',{name:'bob'})
-    res.send('ifjijf')
+    //res.render('home',{name:'bob'})
+    res.send('test')
+})
+
+app.get('/test',(req,res)=>{
+  //res.render('home',{name:'bob'})
+  res.send('test')
 })
 
 const server = app.listen(port,()=>{
@@ -21,7 +26,7 @@ options={
  }
 const io = require('socket.io')(server,options);
 const routerJs = require('./router')(io)
-app.use('/', routerJs);
+app.use('/archer', routerJs);
 
 app.use(express.json());
 app.use(express.urlencoded({

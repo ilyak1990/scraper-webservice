@@ -6,7 +6,7 @@ module.exports = function (io) {
 
     let running = false;
     //need to fix here, when this is called in controller there is an async issue where the model is undefined, if you put the same logic in there it works fine
-    router.get('/archer', async (req, res) => {
+    router.get('/', async (req, res) => {
         console.log("is running")
         //if(running===true){return  res.status(400).json("it's running") }
         //if (running !== true) {
