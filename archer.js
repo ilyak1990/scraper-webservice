@@ -57,7 +57,7 @@ module.exports = {
                     {
                     await page.goto(businessLink, {
                         waitUntil: 'networkidle0',
-                        timeout: 120000,
+                        timeout: 0,
                     }).then(async () => {
                         await page.evaluate(() => document.body.innerHTML).then(async (html) => {
                             let returnedEmails=helper.getEmailsFromBody(businessLinks.regularUrls[i].escapedStore,html);
