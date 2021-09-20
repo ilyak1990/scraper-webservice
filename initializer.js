@@ -12,7 +12,9 @@ module.exports = {
         //}
         //const userAgent = agent.getRandom();
         //const UA = userAgent || USER_AGENT;
-        return await puppeteer.launch()
+        return await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser'
+          })
         //return browser;
         
     },
