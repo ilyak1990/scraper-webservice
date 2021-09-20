@@ -41,7 +41,12 @@ module.exports = {
             await page.close();
         }
         console.log("done initial google business scrape, closing browser")
+        try{
         browser.close();
+        }
+        catch(err){
+            console.log(err)
+        }
         return { regularUrls }
 
 
