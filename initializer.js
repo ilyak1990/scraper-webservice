@@ -12,9 +12,15 @@ module.exports = {
         //}
         //const userAgent = agent.getRandom();
         //const UA = userAgent || USER_AGENT;
-        return await puppeteer.launch({
-            executablePath: '/usr/bin/chromium-browser'
-          })
+        let pupOptions={}; 
+        if(process.env.NODE_ENV === 'production')
+        {
+             pupOptions={
+                executablePath: '/usr/bin/chromium-browser',
+                args: ["--no-sandbox"]
+              };
+        }
+        return await puppeteer.launch(pupOptions)
         //return browser;
         
     },
