@@ -13,8 +13,9 @@ module.exports = {
         //const userAgent = agent.getRandom();
         //const UA = userAgent || USER_AGENT;
         let pupOptions={}; 
+        console.log(process.env.NODE_ENV)
         if(process.env.NODE_ENV === 'production')
-        {
+        {console.log("this is production")
              pupOptions={
                 executablePath: '/usr/bin/chromium-browser',
                 args: ["--no-sandbox"]
