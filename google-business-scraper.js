@@ -27,7 +27,7 @@ module.exports = {
 
             await page.goto(url, {
                 waitUntil: 'networkidle0',
-                timeout: 120000,
+                timeout: 0,
             }).then(async () => {
 
                 await page.evaluate(() => document.body.innerHTML).then(async (html) => {
