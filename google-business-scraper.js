@@ -67,9 +67,12 @@ module.exports = {
                 console.log(businessButton + " button")
                 if (businessButton.length === 0) {
                     console.log("NO BUTTON")
+                    console.log(helper.isClosed(html) + " ????")
                     result = helper.isClosed(html)
                 }
+                else{
                 result = $(businessButton[0]).attr('href')
+                }
             }
             catch (err) {
                 console.log("google-business-scraper level scraper")

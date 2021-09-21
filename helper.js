@@ -6,7 +6,7 @@ module.exports = {
         stringHtmlBody = htmlBody.toString();
         emailArr = stringHtmlBody.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
         let result=(emailArr===null) ? 'email not found':emailArr;
-        return { identifier, result};
+        return {identifier, result};
     },
     findContactLink: function (html) {
         var $ = cheerio.load(html);
