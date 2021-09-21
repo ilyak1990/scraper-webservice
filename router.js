@@ -40,11 +40,11 @@ module.exports = function (io) {
 
                 });
             });
-            await archer.scrapeAllBusiness().then((returned) => {
-                console.log(JSON.stringify(returned) + " RETURNED IN ROUTER.JS xxxxxxxx")
-                running = false;
-                return res.status(200).json(returned);
-            })
+            // await archer.scrapeAllBusiness().then((returned) => {
+            //     console.log(JSON.stringify(returned) + " RETURNED IN ROUTER.JS xxxxxxxx")
+            //     running = false;
+            //     return res.status(200).json(returned);
+            // })
 
             // })
             return res;
