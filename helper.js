@@ -22,12 +22,13 @@ module.exports = {
     isClosed(html) {
         var $ = cheerio.load(html);
         let isClosed = Array.from($("span:contains('Permanently closed')", html))
+        console.log("isClosed.length " +isClosed.length)
         if(isClosed.length > 0)
         {
             return 'permanently closed'
         }
         else{
-            'no business site found'
+            return 'no business site found'
         }
     },
     unescapeHTML: function (str) {
