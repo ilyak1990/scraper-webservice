@@ -10,7 +10,7 @@ module.exports = function (io) {
         console.log("is running")
       //  if(running===true){return  res.status(400).json("this batch is currently running") }
     //    running = true;
-
+    
         //if (running !== true) {
           //  running = true;
             // await archer.scrapeAllBusiness().then((returned) => {
@@ -46,7 +46,7 @@ module.exports = function (io) {
                 return res.status(200).json(returned);
             })
 
-            })
+            // })
             return res;
         //}
     })
