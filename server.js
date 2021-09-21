@@ -22,7 +22,7 @@ console.log(`Server running on ${port}`)
 
 options={
   cors:true,
-  origins:["http://localhost:4200","http://scraper-webapp.s3-website.us-east-2.amazonaws.com/"],
+  origins:["http://localhost:4200","http://scraper-webapp.s3-website.us-east-2.amazonaws.com"],
  }
 const io = require('socket.io')(server,options);
 const routerJs = require('./router')(io)
