@@ -8,8 +8,9 @@ module.exports = function (io) {
     //need to fix here, when this is called in controller there is an async issue where the model is undefined, if you put the same logic in there it works fine
     router.get('/', async (req, res) => {
         console.log("is running")
-        if(running===true){return  res.status(400).json("this batch is currently running") }
-        running = true;
+      //  if(running===true){return  res.status(400).json("this batch is currently running") }
+    //    running = true;
+    
         //if (running !== true) {
           //  running = true;
             // await archer.scrapeAllBusiness().then((returned) => {
@@ -23,20 +24,27 @@ module.exports = function (io) {
                 console.log("connection works")
                 socket.on("archer-socket", async docId => {
                     console.log("in archer socket")
+                    try{
                     await archer.scrapeAllBusiness().then((returned) => {
                         console.log(JSON.stringify(returned) + " RETURNED IN ROUTER.JS")
                         socket.emit("archer-socket", returned);
                         running = false;
                         return res.status(200).json(returned);
                     })
+                }
+                catch(err){
+                    console.log("router level catch")
+                    return res.status(500).json(err);
+
+                }
 
                 });
             });
-            await archer.scrapeAllBusiness().then((returned) => {
-                console.log(JSON.stringify(returned) + " RETURNED IN ROUTER.JS")
-                running = false;
-                return res.status(200).json(returned);
-            })
+            // await archer.scrapeAllBusiness().then((returned) => {
+            //     console.log(JSON.stringify(returned) + " RETURNED IN ROUTER.JS xxxxxxxx")
+            //     running = false;
+            //     return res.status(200).json(returned);
+            // })
 
             // })
             return res;
