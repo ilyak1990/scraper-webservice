@@ -59,7 +59,7 @@ module.exports = {
 
 
         async function getWebsiteButton(html) {
-            let result = 'unknown';
+            let result = 'couldnt find website on google search';
             try {
                 console.log("getting into buttton!!")
                 var $ = cheerio.load(html);
@@ -67,7 +67,7 @@ module.exports = {
                 console.log(businessButton + " button")
                 if (businessButton.length === 0) {
                     console.log("NO BUTTON")
-                    return helper.isClosed(html)
+                    result = helper.isClosed(html)
                 }
                 result = $(businessButton[0]).attr('href')
             }

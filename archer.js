@@ -61,8 +61,8 @@ module.exports = {
                             }).then(async () => {
                                 await page.evaluate(() => document.body.innerHTML).then(async (html) => {
                                     let returnedEmails = helper.getEmailsFromBody(businessLinks.regularUrls[i].escapedStore, html);
-                                    if (returnedEmails.emailArr)
-                                        totalHits++;
+                                    if (returnedEmails.emailArr && returnedEmails.emailArr[0]!=='email not found')
+                                        totalHits++
                                     businessEmailArr.push(returnedEmails)
                                     console.log(helper.findContactLink(html) + " contact link found!")
                                 })

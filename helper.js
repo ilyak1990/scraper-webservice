@@ -5,7 +5,7 @@ module.exports = {
     getEmailsFromBody: function (identifier, htmlBody) {
         stringHtmlBody = htmlBody.toString();
         emailArr = stringHtmlBody.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        let result=(emailArr===null) ? 'not found':emailArr;
+        let result=(emailArr===null) ? 'email not found':emailArr;
         return { identifier, result};
     },
     findContactLink: function (html) {
