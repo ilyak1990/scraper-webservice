@@ -18,8 +18,7 @@ module.exports = {
         {console.log("this is production")
              pupOptions={
                 executablePath: '/usr/bin/chromium-browser',
-                headless: false,
-                args: ["--no-sandbox",'--lang=en-US,en']
+                args: ["--no-sandbox",'--lang=en']
 
               };
         }
