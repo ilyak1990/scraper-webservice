@@ -19,7 +19,8 @@ module.exports = {
         for (let i = 0; i < returnedData.length; i++) {
             let storeJson = returnedData[i];
             const page = await initializer.initializePage(browser);
-
+        
+            
             let escapedStore = await helper.unescapeHTML(storeJson.store)
             let url = await urlParser.createGoogleSearchUrl(escapedStore, returnedData[i].address, returnedData[i].zip)
 
