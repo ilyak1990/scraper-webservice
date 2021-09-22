@@ -39,6 +39,18 @@ module.exports = {
             isLandscape: false,
             isMobile: false,
         });
+        await page.evaluateOnNewDocument(() => {
+            Object.defineProperty(navigator, "language", {
+                get: function() {
+                    return "en-GB";
+                }
+            });
+            Object.defineProperty(navigator, "languages", {
+                get: function() {
+                    return ["en-GB", "en"];
+                }
+            });
+        });
         await page.setExtraHTTPHeaders({
             'Accept-Language': 'en'
         });
