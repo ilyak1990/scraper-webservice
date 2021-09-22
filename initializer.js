@@ -38,6 +38,9 @@ module.exports = {
             isLandscape: false,
             isMobile: false,
         });
+        await page.setExtraHTTPHeaders({
+            'Accept-Language': 'en'
+        });
         return page;
     }
 
