@@ -31,7 +31,7 @@ module.exports = {
                 }).then(async () => {
                     await page.evaluate(() => document.body.innerHTML).then(async (html) => {
                         let businessHref;
-                        businessHref = await getWebsiteButton(html);
+                        businessHref = await getWebsiteButton(html,page);
                         businessHref = (businessHref) ? businessHref : 'unknown';
                         regularUrls.push({ escapedStore, businessHref })
                         console.log(businessHref)
@@ -58,7 +58,7 @@ module.exports = {
         return { regularUrls }
 
 
-        async function getWebsiteButton(html) {
+        async function getWebsiteButton(html,page) {
             let result = 'couldnt find website on google search';
             try {
                 console.log("getting into buttton!!")
@@ -68,6 +68,7 @@ module.exports = {
                 if (businessButton.length === 0) {
                     console.log("NO BUTTON")
                     console.log(helper.isClosed(html) + " ????")
+                    await page.screenshot({ path: "./screenshot.png", fullPage: true });
                     result = helper.isClosed(html)
                 }
                 else{
