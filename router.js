@@ -33,7 +33,8 @@ module.exports = function (io) {
                     })
                 }
                 catch(err){
-                    console.log("router level catch")
+                    console.log("router level catch " + err)
+                    socket.emit("archer-socket", err);
                     return res.status(500).json(err);
 
                 }
