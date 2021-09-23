@@ -19,7 +19,7 @@ module.exports = {
             console.log("this is production")
              pupOptions={
                  headless:false,
-                //executablePath: '/usr/bin/chromium-browser',
+                executablePath: '/usr/bin/chromium-browser',
                 args: ["--no-sandbox",'--proxy-server=52.205.44.116:8888']
 
 
