@@ -81,7 +81,7 @@ module.exports = {
                         }
                     }
                     catch (err) {
-                        console.log("archer level catch")
+                        console.log("archer level catch" + err)
                         console.log(err)
                     }
                     finally {

@@ -14,16 +14,19 @@ module.exports = {
         //const UA = userAgent || USER_AGENT;
         let pupOptions={}; 
         console.log(process.env.NODE_ENV)
-        //if(process.env.NODE_ENV === 'production')
-        //{
+       // if(process.env.NODE_ENV === 'production')
+       // {
             console.log("this is production")
              pupOptions={
+                 headless:false,
                 //executablePath: '/usr/bin/chromium-browser',
-                args: ["--no-sandbox",'--proxy-server=http=188.134.1.20:63756']
+                args: ["--no-sandbox",'--proxy-server=52.205.44.116:8888']
+
 
               };
-      //  }
-        return await puppeteer.launch(pupOptions)
+        //}
+        let browser = await puppeteer.launch(pupOptions)
+        return browser;
         //return browser;
         
     },
