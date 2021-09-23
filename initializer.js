@@ -17,9 +17,7 @@ module.exports = {
         if(process.env.NODE_ENV === 'production')
         {console.log("this is production")
              pupOptions={
-                executablePath: '/usr/bin/chromium-browser',
                 args: ["--no-sandbox",'--lang=en']
-
               };
         }
         return await puppeteer.launch(pupOptions)
