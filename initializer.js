@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer-extra');
+const path = require('path');
+
 //const agent = require('random-useragent');
 
 //let browser=null;
@@ -6,29 +8,37 @@ const puppeteer = require('puppeteer-extra');
 module.exports = {
     initializeBrowser: async function () {
         console.log("initializitng browser called")
-       // if(browser!==null)
-     //   {console.log("not null")
-          //  return browser;
+
+        // if(browser!==null)
+        //   {console.log("not null")
+        //  return browser;
         //}
         //const userAgent = agent.getRandom();
         //const UA = userAgent || USER_AGENT;
-        let pupOptions={}; 
+        let pupOptions = {};
         console.log(process.env.NODE_ENV)
-       // if(process.env.NODE_ENV === 'production')
-       // {
-            console.log("this is production")
-             pupOptions={
-                headless:process.env.NODE_ENV==='production',
-                executablePath: '/usr/bin/chromium-browser',
-                args: ["--no-sandbox",'--proxy-server=52.205.44.116:8888']
+        console.log(__dirname + " dirname")
+        // if(process.env.NODE_ENV === 'production')
+        // {
+
+        //let exec_path = path.join(__dirname + "/node_modules/puppeteer-extra/.local-chromium/win64-869685/chrome-win/chrome.exe")
+
+        console.log("this is production")
+        pupOptions = {
+            headless: true,
+            //executablePath: '/usr/bin/chromium-browser',
+            args: [ "--no-sandbox", '--disable-web-security', '--ignore-certificate-errors']
 
 
-              };
+        };
+        if(process.env.NODE_ENV === 'production'){
+            pupOptions.executablePath='/usr/bin/chromium-browser'
+        }
         //}
         let browser = await puppeteer.launch(pupOptions)
-        return browser;
+        return await browser;
         //return browser;
-        
+
     },
     initializePage: async function (browser) {
         let page = await browser.newPage()
@@ -43,21 +53,25 @@ module.exports = {
             isLandscape: false,
             isMobile: false,
         });
-//         await page.evaluateOnNewDocument(() => {
-//     Object.defineProperty(navigator, "language", {
-//         get: function() {
-//             return "en-GB";
-//         }
-//     });
-//     Object.defineProperty(navigator, "languages", {
-//         get: function() {
-//             return ["en-GB", "en"];
-//         }
-//     });
-// });
-        await page.setExtraHTTPHeaders({
-            'Accept-Language': 'en'
-        });
+        await page.setUserAgent(
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+        );
+
+        //         await page.evaluateOnNewDocument(() => {
+        //     Object.defineProperty(navigator, "language", {
+        //         get: function() {
+        //             return "en-GB";
+        //         }
+        //     });
+        //     Object.defineProperty(navigator, "languages", {
+        //         get: function() {
+        //             return ["en-GB", "en"];
+        //         }
+        //     });
+        // });
+        // await page.setExtraHTTPHeaders({
+        //     'Accept-Language': 'en'
+        // });
         return page;
     }
 

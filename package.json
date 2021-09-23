@@ -17,6 +17,7 @@
     "path": "^0.12.7",
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-stealth": "^2.7.10",
+    "puppeteer-proxy": "^2.1.2",
     "socket.io": "^4.2.0"
   },
   "devDependencies": {},

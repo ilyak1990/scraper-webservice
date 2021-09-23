@@ -8,6 +8,8 @@ const returnedData = require('./returned.json')
 const helper = require('./helper.js')
 const initializer = require('./initializer.js')
 const urlParser = require('./search-url-parser.js')
+const proxyRequest = require('puppeteer-proxy')
+
 
 
 module.exports = {
@@ -26,10 +28,21 @@ module.exports = {
 
             console.log("going into this URL " + url + " for store " + escapedStore)
             try {
+                // await page.setRequestInterception(true);
+
+                // page.on('request', async (request) => {
+                //   await proxyRequest({
+                //     page,
+                //     proxyUrl: 'https://20.88.192.37	:80',
+                //     request,
+                //   });
+                // });
+              
                 await page.goto(url, {
                     waitUntil: 'networkidle0',
                     timeout: 0,
                 }).then(async () => {
+                    //await page.screenshot({ path: "./screenshot.png", fullPage: true });
                     await page.evaluate(() => document.body.innerHTML).then(async (html) => {
                         let businessHref;
                         businessHref = await getWebsiteButton(html,page);
