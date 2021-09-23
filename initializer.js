@@ -17,7 +17,9 @@ module.exports = {
         if(process.env.NODE_ENV === 'production')
         {console.log("this is production")
              pupOptions={
+                executablePath: '/usr/bin/chromium-browser',
                 args: ["--no-sandbox",'--lang=en']
+
               };
         }
         return await puppeteer.launch(pupOptions)
@@ -37,18 +39,18 @@ module.exports = {
             isLandscape: false,
             isMobile: false,
         });
-        await page.evaluateOnNewDocument(() => {
-            Object.defineProperty(navigator, "language", {
-                get: function() {
-                    return "en-GB";
-                }
-            });
-            Object.defineProperty(navigator, "languages", {
-                get: function() {
-                    return ["en-GB", "en"];
-                }
-            });
-        });
+//         await page.evaluateOnNewDocument(() => {
+//     Object.defineProperty(navigator, "language", {
+//         get: function() {
+//             return "en-GB";
+//         }
+//     });
+//     Object.defineProperty(navigator, "languages", {
+//         get: function() {
+//             return ["en-GB", "en"];
+//         }
+//     });
+// });
         await page.setExtraHTTPHeaders({
             'Accept-Language': 'en'
         });
