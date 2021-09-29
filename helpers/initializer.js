@@ -6,7 +6,7 @@ const path = require('path');
 //let browser=null;
 
 module.exports = {
-    initializeBrowser: async function () {
+    initializeBrowser: async function (params) {
         console.log("initializitng browser called")
 
         // if(browser!==null)
@@ -42,9 +42,6 @@ module.exports = {
     },
     initializePage: async function (browser) {
         let page = await browser.newPage()
-        let width = 1920 + Math.floor(Math.random() * 100);
-        let height = 3000 + Math.floor(Math.random() * 100)
-        console.log(width + " by " + height)
         await page.setViewport({
             width: 1920 + Math.floor(Math.random() * 100),
             height: 3000 + Math.floor(Math.random() * 100),

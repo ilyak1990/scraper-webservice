@@ -1,8 +1,8 @@
 const cheerio = require('cheerio');
-const returnedData = require('./returned.json')
-const helper = require('./helper.js')
-const initializer = require('./initializer.js')
-const urlParser = require('./search-url-parser.js')
+const returnedData = require('../../returned.json')
+const helper = require('../../helpers/helper.js')
+const initializer = require('../../helpers/initializer.js')
+const urlParser = require('../../helpers/search-url-parser.js')
 
 
 const faceBookUrls = [];

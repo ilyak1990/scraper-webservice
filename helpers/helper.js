@@ -2,11 +2,11 @@ const cheerio = require('cheerio');
 
 module.exports = {
 
-    getEmailsFromBody: function (identifier, htmlBody) {
+    getEmailsFromBody: function ( htmlBody) {
         stringHtmlBody = htmlBody.toString();
         emailArr = stringHtmlBody.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
         let result = (emailArr === null) ? 'email not found' : emailArr;
-        return { identifier, result };
+        return  result ;
     },
     findContactLink: function (html) {
         var $ = cheerio.load(html);
@@ -22,11 +22,12 @@ module.exports = {
     isClosed(html) {
         var $ = cheerio.load(html);
         let isClosed = Array.from($("span:contains('Permanently closed')", html))
-        console.log("isClosed.length " + isClosed.length)
         if (isClosed.length > 0) {
+            console.log( 'permanently closed')
             return 'permanently closed'
         }
         else {
+            console.log( 'no business site found')
             return 'no business site found'
         }
     },

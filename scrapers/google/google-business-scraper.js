@@ -4,10 +4,10 @@ const cheerio = require('cheerio');
 //const nodeMailer = require('nodemailer');
 //const pretty = require('pretty-html-log').highlight;
 //const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-const returnedData = require('./returned.json')
-const helper = require('./helper.js')
-const initializer = require('./initializer.js')
-const urlParser = require('./search-url-parser.js')
+const returnedData = require('../../returned.json')
+const helper = require('../../helpers/helper.js')
+const initializer = require('../../helpers/initializer.js')
+const urlParser = require('../../helpers/search-url-parser.js')
 const proxyRequest = require('puppeteer-proxy')
 
 
@@ -24,9 +24,9 @@ module.exports = {
         
             
             let escapedStore = await helper.unescapeHTML(storeJson.store)
-            let url = await urlParser.createGoogleSearchUrl(escapedStore, returnedData[i].address, returnedData[i].zip)
+            let googleSearch = await urlParser.createGoogleSearchUrl(escapedStore, returnedData[i].address, returnedData[i].zip)
 
-            console.log("going into this URL " + url + " for store " + escapedStore)
+            console.log("------------------ " + googleSearch + " for store " + escapedStore + " ------------------")
             try {
                 // await page.setRequestInterception(true);
 
@@ -38,7 +38,7 @@ module.exports = {
                 //   });
                 // });
               
-                await page.goto(url, {
+                await page.goto(googleSearch, {
                     waitUntil: 'networkidle0',
                     timeout: 0,
                 }).then(async () => {
@@ -47,8 +47,8 @@ module.exports = {
                         let businessHref;
                         businessHref = await getWebsiteButton(html,page);
                         businessHref = (businessHref) ? businessHref : 'unknown';
-                        regularUrls.push({ escapedStore, businessHref })
-                        console.log(businessHref)
+                        regularUrls.push({ escapedStore, businessHref, googleSearch })
+                        console.log(businessHref + " <<<business site  result")
                     })
                 })
             }
@@ -75,14 +75,10 @@ module.exports = {
         async function getWebsiteButton(html,page) {
             let result = 'couldnt find website on google search';
             try {
-                console.log("getting into buttton!!")
                 var $ = cheerio.load(html);
                 let businessButton = Array.from($("a.ab_button:contains('Website')", html))
-                console.log(businessButton + " button")
                 if (businessButton.length === 0) {
-                    console.log("NO BUTTON")
-                    console.log(helper.isClosed(html) + " ????")
-                    await page.screenshot({ path: "./screenshot.png", fullPage: true });
+                   // await page.screenshot({ path: "./screenshot.png", fullPage: true });
                     result = helper.isClosed(html)
                 }
                 else{

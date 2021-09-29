@@ -25,8 +25,11 @@ options={
   origins:["http://localhost:4200","http://scraper-webapp.s3-website.us-east-2.amazonaws.com"],
  }
 const io = require('socket.io')(server,options);
-const routerJs = require('./router')(io)
-app.use('/archer', routerJs);
+const googleRouter = require('./routers/google-router')(io)
+//const amazonRouter = require('./routers/amazon-router')(io)
+
+app.use('/google', googleRouter);
+//app.use('/amazon', amazonRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({

@@ -1,10 +1,9 @@
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-const initializer = require('./initializer.js')
-const fbScrape = require('./facebook-scraper.js')
+const initializer = require('../../helpers/initializer.js')
 const googleBusScrape = require('./google-business-scraper.js')
-
-const helper = require('./helper.js')
+const helper = require('../../helpers/helper.js')
+const fs = require('fs');
 
 
 puppeteer.use(StealthPlugin())
@@ -53,6 +52,8 @@ module.exports = {
                     const page = await initializer.initializePage(browser);
                     try {
                         let businessLink = String(businessLinks.regularUrls[i].businessHref);
+                        let googleSearch = String(businessLinks.regularUrls[i].googleSearch);
+
                         console.log(businessLink)
                         if (businessLink.indexOf('http') > -1) {
                             await page.goto(businessLink, {
@@ -60,14 +61,23 @@ module.exports = {
                                 timeout: 0,
                             }).then(async () => {
                                 await page.evaluate(() => document.body.innerHTML).then(async (html) => {
-                                    let returnedEmails = helper.getEmailsFromBody(businessLinks.regularUrls[i].escapedStore, html);
-                                    if (returnedEmails.emailArr && returnedEmails.emailArr[0]!=='email not found')
-                                    {
-                                        totalHits++
-                                   console.log("incrementing hits")
-                                    }
-                                    businessEmailArr.push(returnedEmails)
-                                    console.log(helper.findContactLink(html) + " contact link found!")
+                                    console.log("evaluating HTML")
+                                    const theStore = businessLinks.regularUrls[i].escapedStore;
+                                    let returnedEmails = helper.getEmailsFromBody(html);
+                                    console.log(" *********** " + returnedEmails + " ******* emails form main site!")
+
+                                    //     if (returnedEmails.emailArr && returnedEmails.emailArr[0]!=='email not found')
+                                    //     {
+                                    //         totalHits++
+                                    //    console.log("incrementing hits")
+                                    //     }
+                                    let contactLinkEmails;
+                                    contactLinkEmails = helper.findContactLink(html)
+                                    console.log(" *********** " + contactLinkEmails + " ******* emails from contact pages")
+
+                                    // returnedEmails.concat(contactLinkEmails)
+
+                                    businessEmailArr.push({ theStore, googleSearch, businessLink, returnedEmails, contactLinkEmails })
                                 })
                             })
                         }
@@ -102,6 +112,12 @@ module.exports = {
             )
         // .catch(console.log("catch"))
         //await browser.close()
+
+         //fs.writeFile('test.json', JSON.stringify({ businessEmailArr, failedBusinessArr }, null, 4));
+
+         fs.writeFile('test.json', JSON.stringify({ businessEmailArr, failedBusinessArr }, null, 4), function(err, result) {
+            if(err) console.log('error', err);
+          });
         return { businessEmailArr, failedBusinessArr }
 
     }
